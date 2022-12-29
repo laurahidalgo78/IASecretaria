@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="card">
+    <div class="card-body">
+        @if(ViewBag.resultado == "Saludo" )
+        {
+            <img width="600" height="500" src="@ViewBag.video" title="saludo"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></img>
+        }
+        else
+        {
+            <img width="600" height="500" src="@ViewBag.video" title="despedida"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></img>
+        }
+
+    </div>
+    
+</div> 
