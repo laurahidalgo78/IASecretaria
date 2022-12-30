@@ -81,7 +81,7 @@ namespace IASecretaria.Controllers
                     return ViewBag.saludo = "https://cdn.domestika.org/c_limit,dpr_auto,f_auto,q_auto,w_820/v1586839695/content-items/004/191/065/LOOP__SALUDANDO-original.gif?1586839695"; 
                     break;
                 case "Despedida":
-                    return ViewBag.adios = "https://pa1.narvii.com/6955/5c74426ec29e927901e1f1152a88b317808fe3cdr1-500-280_hq.gif";
+                    return ViewBag.saludo = "https://pa1.narvii.com/6955/5c74426ec29e927901e1f1152a88b317808fe3cdr1-500-280_hq.gif";
                     break;
                 default:
                     return "Otra cosa";

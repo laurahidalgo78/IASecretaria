@@ -15,4 +15,10 @@
         public string confidenceScoreThreshold { get; set; }
         public AnswerSpanRequest answerSpanRequest { get; set; }
     }
+
+    public class respuestaReconocimietoVoz
+    {
+        public string respuesta { get; set; }
+        public string respuestaVideo { get; set; }
+    }
 }

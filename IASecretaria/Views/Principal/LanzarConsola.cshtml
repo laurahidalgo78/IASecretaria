@@ -1,0 +1,151 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var carga = ViewBag.video;
+}
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+        crossorigin="anonymous"></script>
+
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Saluda a tu asistente</title>
+    <style>
+        #number {
+            font - size: 50px;
+            color: #434343;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div id="number"></div>
+    <h1>Habla por el microfono</h1>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <center id="contenedorImagen">
+
+            </center>
+
+        </div>
+
+    </div>
+ 
+ 
+    
+  @if(ViewBag.hola == null)
+    {
+        <script>
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("LanzarConsola", "Principal", new { Area = "" })/",
+                data: { nose: "1" },
+                success: function (result) {
+                   var desaparecerObject = document.querySelectorAll("#desaparece");
+                    if(desaparecerObject != null)
+                    {
+                        for(i = 0; i<desaparecerObject.length; i++)
+                        {
+                            desaparecerObject[i].remove();
+                        }   
+                    }
+                    var unicornio = JSON.parse(result);
+                    var unicornioAzul = unicornio.respuestaVideo;
+                    var unicornioRojo = unicornio.respuesta;
+                    var contenedor = document.getElementById("contenedorImagen");
+
+                    var imagen = document.createElement("img");
+
+                    imagen.setAttribute("width", "600");
+                    imagen.setAttribute("height", "500");
+                    imagen.setAttribute("class", "img");
+                    imagen.setAttribute("id", "desaparece");
+                    imagen.setAttribute("src", unicornioAzul);
+                    contenedor.appendChild(imagen);
+
+                    var br = document.createElement("br");
+                    contenedor.appendChild(br);
+
+                    var boton = document.createElement("button");
+                    boton.setAttribute("style", "border-radius: 50%;box-shadow: 0px 0px 5px black;position: relative");
+                    boton.setAttribute("class", "btn btn-primary");
+                    boton.setAttribute("id", "desaparece");
+                    boton.setAttribute("onclick", "reiniciar()");
+                    var icon = document.createElement("i");
+                    icon.setAttribute("class", "material-icons dp48");
+                    var textIcon = document.createTextNode("keyboard_voice");
+                    icon.appendChild(textIcon);
+                    boton.appendChild(icon);
+                    contenedor.appendChild(boton);
+
+
+                }
+            });
+        </script>
+        <script>
+            function reiniciar(){           
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("LanzarConsola", "Principal", new { Area = "" })/",
+                    data: { nose: "1" },
+                    success: function (result) {
+                        var desaparecerObject = document.querySelectorAll("#desaparece");
+                        if(desaparecerObject != null)
+                        {
+                            for(i = 0; i<desaparecerObject.length; i++){
+                                desaparecerObject[i].remove();
+                            }   
+                        }
+
+                        var unicornio = JSON.parse(result);
+                        var unicornioAzul = unicornio.respuestaVideo;
+                        var unicornioRojo = unicornio.respuesta;
+                        var contenedor = document.getElementById("contenedorImagen");
+                        
+                        var imagen = document.createElement("img");
+
+                        imagen.setAttribute("width", "600");
+                        imagen.setAttribute("height", "500");
+                        imagen.setAttribute("class", "img");
+                        imagen.setAttribute("id", "desaparece");
+                        imagen.setAttribute("src", unicornioAzul);
+                        contenedor.appendChild(imagen);
+
+                        var br = document.createElement("br");
+                        contenedor.appendChild(br);
+
+                        var boton = document.createElement("button");
+                        boton.setAttribute("style", "border-radius: 50%;box-shadow: 0px 0px 5px black;position: relative");
+                        boton.setAttribute("class", "btn btn-primary");
+                        boton.setAttribute("id", "desaparece");
+                        boton.setAttribute("onclick", "reiniciar()");
+                        var icon = document.createElement("i");
+                        icon.setAttribute("class", "material-icons dp48");
+                        var textIcon = document.createTextNode("keyboard_voice");
+                        icon.appendChild(textIcon);
+                        boton.appendChild(icon);
+                        contenedor.appendChild(boton);
+
+                    }
+                });
+            }
+        </script>
+    }
+    
+   
+
+
+</body>
+
+</html>
+
+

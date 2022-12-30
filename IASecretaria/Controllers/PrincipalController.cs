@@ -2,6 +2,8 @@
 using Microsoft.CognitiveServices.Speech.Audio;
 using Microsoft.CognitiveServices.Speech;
 using IASecretaria.Services;
+using IASecretaria.Models;
+using Newtonsoft.Json;
 
 namespace IASecretaria.Controllers
 {
@@ -9,13 +11,21 @@ namespace IASecretaria.Controllers
     {
         public async Task<IActionResult> Principal()
         {
-            
+           
             return View();
             
         }
 
-        public async void LanzarConsola()
+        public async Task<IActionResult> LanzarConsola()
         {
+            ViewBag.hola = null;
+            return View();
+        }
+            [HttpPost]
+        
+        public async Task<JsonResult> LanzarConsola(int nose)
+        {
+            
             var respuesta1 = "";
             var respuestaPrediction = "";
             var respuestaVideo = "";
@@ -26,6 +36,7 @@ namespace IASecretaria.Controllers
             QaAServices qaAServices = new QaAServices();
             // Recibe la respuesta del del metodo que transforma la voz a texto
             var respuesta = await RecognizeFromMic(speechConfig);
+            ViewBag.hola = respuesta;
             // Crea una nueva instancia de la clase QaAServices
             var consulta = new QaAServices();
 
@@ -40,6 +51,14 @@ namespace IASecretaria.Controllers
 
             ViewBag.resultado = respuestaPrediction;
             ViewBag.video = respuestaVideo;
+
+            
+            respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
+            reconocimiento.respuesta = respuestaPrediction;
+            reconocimiento.respuestaVideo = respuestaVideo;
+            var jsonVideo = JsonConvert.SerializeObject(reconocimiento);
+            return new JsonResult(jsonVideo);
+            
         }
 
         static async Task<string> RecognizeFromMic(SpeechConfig speechConfig)
