@@ -86,6 +86,9 @@ namespace IASecretaria.Controllers
                 case "Preguntas Empleados":
                     return ViewBag.saludo = "https://gifimage.net/wp-content/uploads/2018/04/personas-hablando-gif-animados.gif";
                     break;
+                case "Preguntas Empresa":
+                    return ViewBag.saludo = "https://gifimage.net/wp-content/uploads/2018/04/personas-hablando-gif-animados.gif";
+                    break;
                 default:
                     return ViewBag.saludo = "https://images.emojiterra.com/google/android-11/512px/2753.png";
                     break;
