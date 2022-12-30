@@ -83,8 +83,11 @@ namespace IASecretaria.Controllers
                 case "Despedida":
                     return ViewBag.saludo = "https://pa1.narvii.com/6955/5c74426ec29e927901e1f1152a88b317808fe3cdr1-500-280_hq.gif";
                     break;
+                case "Preguntas Empleados":
+                    return ViewBag.saludo = "https://gifimage.net/wp-content/uploads/2018/04/personas-hablando-gif-animados.gif";
+                    break;
                 default:
-                    return "Otra cosa";
+                    return ViewBag.saludo = "https://images.emojiterra.com/google/android-11/512px/2753.png";
                     break;
             }
 
