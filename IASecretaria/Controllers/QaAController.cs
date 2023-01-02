@@ -49,7 +49,7 @@ namespace IASecretaria.Controllers
         // Metodo que ejecuta la peticion a la API de preguntas y respuestas
         public string PeticionQaA(string respuestaVoz)
         {
-            string url = "https://lr-luis.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=QaA-clu&api-version=2021-10-01&deploymentName=production";
+            string url = "https://lr-luis.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=qaA-bot&api-version=2021-10-01&deploymentName=production";
             // Se incertan datos en el modelo
             QaAModel modelQaA = new QaAModel()
             {
