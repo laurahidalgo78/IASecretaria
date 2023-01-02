@@ -51,7 +51,7 @@ namespace IASecretaria.Services
             }
 
         }
-
+        // Realiza la peticion enviando un JSON a la API de Prediccion de intenciones
         public string EjecutarPostPrediction(string DatosAcceso, string urlApi)
         {
             try
