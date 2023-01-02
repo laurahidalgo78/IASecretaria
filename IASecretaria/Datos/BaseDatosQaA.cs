@@ -8,7 +8,7 @@ namespace IASecretaria.Datos
 {
     public class BaseDatosQaA : IdentityDbContext
     {
-        public BaseDatosQaA(DbContextOptions options) : base(options)
+        public BaseDatosQaA(DbContextOptions options) : base()
         {
 
         }
