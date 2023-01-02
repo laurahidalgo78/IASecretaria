@@ -1,9 +1,16 @@
+using IASecretaria.Datos;
 using IASecretaria.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<AplicationBaseDatos>(opciones =>
+    opciones.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSQLServer"))
+);
 
 var app = builder.Build();
 
@@ -27,3 +34,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
