@@ -55,26 +55,34 @@ namespace IASecretaria.Controllers
         // Metodo que ejecuta la peticion a la API de preguntas y respuestas
         public string PeticionQaA(string respuestaVoz)
         {
+            var respuesta = "";
             string url = "https://lr-luis.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=qaA-bot&api-version=2021-10-01&deploymentName=production";
             // Se incertan datos en el modelo
-            QaAModel modelQaA = new QaAModel()
+            if (respuestaVoz == "")
             {
-                top = 3,
-                question = respuestaVoz,
-                includeUnstructuredSources = true,
-                confidenceScoreThreshold = "0.8",
-                answerSpanRequest = new AnswerSpanRequest()
+                respuesta = "No tengo respuesta para esa pregunta";
+            }
+            else
+            {
+                QaAModel modelQaA = new QaAModel()
                 {
-                    enable = true,
-                    topAnswersWithSpan = 1,
-                    confidenceScoreThreshold = "0.8"
-                }
-            };
-            // Se serializa el modelo
-            string modelserialize = JsonConvert.SerializeObject(modelQaA);
+                    top = 3,
+                    question = respuestaVoz,
+                    includeUnstructuredSources = true,
+                    confidenceScoreThreshold = "0.8",
+                    answerSpanRequest = new AnswerSpanRequest()
+                    {
+                        enable = true,
+                        topAnswersWithSpan = 1,
+                        confidenceScoreThreshold = "0.8"
+                    }
+                };
+                // Se serializa el modelo
+                string modelserialize = JsonConvert.SerializeObject(modelQaA);
 
-            // Se ejecuta el el POST y guardamos la respuesta en una variable
-            var respuesta = _QaAservices.EjecutarPostJson(modelserialize, url);
+                // Se ejecuta el el POST y guardamos la respuesta en una variable
+                respuesta = _QaAservices.EjecutarPostJson(modelserialize, url);
+            }
             // Retorna la variable respuesta
             return respuesta;
         }
@@ -83,35 +91,43 @@ namespace IASecretaria.Controllers
         // Metodo que ejecuta la peticion a la API de predicciones
         public string PeticionPrediction(string respuestaPeticion)
         {
+            var resultadoPrediction = "";
             string urlPrediction = "https://lr-luis.cognitiveservices.azure.com/language/:analyze-conversations?api-version=2022-10-01-preview";
-            // Se incertan datos en el modelo
-            Prediction prediction = new Prediction()
+            if (respuestaPeticion == "")
             {
-                kind = "Conversation",
-                analysisInput = new AnalysisInput()
+                resultadoPrediction = "None";
+            }
+            else
+            {
+                // Se incertan datos en el modelo
+                Prediction prediction = new Prediction()
                 {
-                    conversationItem = new ConversationItem()
+                    kind = "Conversation",
+                    analysisInput = new AnalysisInput()
                     {
-                        id = "1",
-                        text = respuestaPeticion,
-                        modality = "text",
-                        language = "en",
-                        participantId = "1",
+                        conversationItem = new ConversationItem()
+                        {
+                            id = "1",
+                            text = respuestaPeticion,
+                            modality = "text",
+                            language = "en",
+                            participantId = "1",
+                        }
+                    },
+                    parameters = new Parameters()
+                    {
+                        projectName = "Secretarie",
+                        verbose = true,
+                        deploymentName = "DeploySecretarie",
+                        stringIndexType = "TextElement_V8",
                     }
-                },
-                parameters = new Parameters()
-                {
-                    projectName = "Secretarie",
-                    verbose = true,
-                    deploymentName = "DeploySecretarie",
-                    stringIndexType = "TextElement_V8",
-                }
-            };
-            // Se serializa el modelo
-            string serializePrediction = JsonConvert.SerializeObject(prediction);
-            // Se ejecuta el el POST y guardamos la respuesta en una variable
-            var resultadoPrediction = _QaAservices.EjecutarPostPrediction(serializePrediction, urlPrediction);
-            Console.WriteLine(resultadoPrediction);
+                };
+                // Se serializa el modelo
+                string serializePrediction = JsonConvert.SerializeObject(prediction);
+                // Se ejecuta el el POST y guardamos la respuesta en una variable
+                resultadoPrediction = _QaAservices.EjecutarPostPrediction(serializePrediction, urlPrediction);
+                Console.WriteLine(resultadoPrediction);
+            }
             return resultadoPrediction;
         }
 
