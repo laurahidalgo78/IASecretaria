@@ -137,24 +137,6 @@ namespace IASecretaria.Controllers
             }
 
             // Se valua la intencion y de acuerdo a la misma se retorna una imagen a la vista
-            //switch (intencion)
-            //{
-            //    case "Saludo":
-            //        return ViewBag.saludo = "https://cdn.domestika.org/c_limit,dpr_auto,f_auto,q_auto,w_820/v1586839695/content-items/004/191/065/LOOP__SALUDANDO-original.gif?1586839695"; 
-            //        break;
-            //    case "Despedida":
-            //        return ViewBag.saludo = "https://pa1.narvii.com/6955/5c74426ec29e927901e1f1152a88b317808fe3cdr1-500-280_hq.gif";
-            //        break;
-            //    case "Preguntas empleados":
-            //        return ViewBag.saludo = "https://gifimage.net/wp-content/uploads/2018/04/personas-hablando-gif-animados.gif";
-            //        break;
-            //    case "Preguntas empresa":
-            //        return ViewBag.saludo = "https://gifimage.net/wp-content/uploads/2018/04/personas-hablando-gif-animados.gif";
-            //        break;
-            //    default:
-            //        return ViewBag.saludo = "https://images.emojiterra.com/google/android-11/512px/2753.png";
-            //        break;
-            //}
 
             return ViewBag.Saludo;
 
