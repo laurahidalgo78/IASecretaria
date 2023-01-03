@@ -48,18 +48,23 @@ namespace IASecretaria.Controllers
             respuestaVideo = qaAController.videoPeticion(respuestaPrediction);
             // Envia un mensaje al canal de Teams
             //qaAController.PeticionTeams(respuesta);
-            // Ejecuta el metodo PeticionQaA
-            respuesta1 = qaAController.PeticionQaA(respuesta);
-            // Ejecuta el metodo que convierte el texto a voz
-            await qaAController.ReconocimientoTexto(respuesta1, speechConfig);
-
-
             respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
             reconocimiento.respuesta = respuestaPrediction;
             reconocimiento.respuestaVideo = respuestaVideo;
             var jsonVideo = JsonConvert.SerializeObject(reconocimiento);
             ViewBag.hola = respuesta;
             return new JsonResult(jsonVideo);
+            // Ejecuta el metodo PeticionQaA
+            respuesta1 = await qaAController.PeticionQaA(respuesta);
+            // Ejecuta el metodo que convierte el texto a voz
+            await qaAController.ReconocimientoTexto(respuesta1, speechConfig);
+
+            //var optionsParallelism = new ParallelOptions { MaxDegreeOfParallelism = 3 };
+
+            //await Parallel.ForEachAsync(respuesta1, optionsParallelism, async (speechConfig, _) =>
+            //{
+            //    await qaAController.PeticionPrediction(respuesta);
+            //});
 
         }
     }

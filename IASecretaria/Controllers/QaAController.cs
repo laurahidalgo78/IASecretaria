@@ -53,7 +53,7 @@ namespace IASecretaria.Controllers
         }
 
         // Metodo que ejecuta la peticion a la API de preguntas y respuestas
-        public string PeticionQaA(string respuestaVoz)
+        public async Task<string> PeticionQaA(string respuestaVoz)
         {
             var respuesta = "";
             string url = "https://lr-luis.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=qaA-bot&api-version=2021-10-01&deploymentName=production";
