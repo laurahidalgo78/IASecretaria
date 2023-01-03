@@ -96,7 +96,7 @@ namespace IASecretaria.Services
         }
 
         // Realiza la peticion enviando un JSON a la API de Prediccion de intenciones
-        public bool EjecutarPostTeams(string DatosAcceso, string urlApi)
+        public void EjecutarPostTeams(string DatosAcceso, string urlApi)
         {
             try
             {
@@ -118,11 +118,10 @@ namespace IASecretaria.Services
                 var ejemplo = client.SendAsync(request).ContinueWith(responseTask =>
                responseTask.Result).Result;
 
-                return true;
             }
             catch (Exception ex)
             {
-                return false;
+                _ = ex.Message;
             }
 
         }

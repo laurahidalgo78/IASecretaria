@@ -41,21 +41,19 @@ namespace IASecretaria.Controllers
             var speechConfig = SpeechConfig.FromSubscription("147d98b295e7495cae0589c5ce4d1cdd", "eastus");
             // Recibe la respuesta del del metodo que transforma la voz a texto
             var respuesta = await qaAController.ReconocimientoVoz(speechConfig);
-
-            // Ejecuta el metodo PeticionQaA
-            respuesta1 = qaAController.PeticionQaA(respuesta);
             // Ejecuta el metodo PeticionPrediction
             respuestaPrediction = qaAController.PeticionPrediction(respuesta);
+            ViewBag.resultado = respuestaPrediction;
             // Ejecuta el metodo videoPeticion
             respuestaVideo = qaAController.videoPeticion(respuestaPrediction);
+            // Envia un mensaje al canal de Teams
+            //qaAController.PeticionTeams(respuesta);
+            // Ejecuta el metodo PeticionQaA
+            respuesta1 = qaAController.PeticionQaA(respuesta);
             // Ejecuta el metodo que convierte el texto a voz
             await qaAController.ReconocimientoTexto(respuesta1, speechConfig);
-            qaAController.PeticionTeams("Buenas");
 
-            ViewBag.resultado = respuestaPrediction;
-            ViewBag.video = respuestaVideo;
 
-            
             respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
             reconocimiento.respuesta = respuestaPrediction;
             reconocimiento.respuestaVideo = respuestaVideo;
