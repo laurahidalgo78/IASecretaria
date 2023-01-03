@@ -94,7 +94,8 @@
             });
         </script>
         <script>
-            function reiniciar(){           
+            function reiniciar(){  
+                $("button").css("background", "green");
                 $.ajax({
                     type: 'POST',
                     url: "@Url.Action("LanzarConsola", "Principal", new { Area = "" })/",
@@ -127,7 +128,7 @@
                         contenedor.appendChild(br);
 
                         var boton = document.createElement("button");
-                        boton.setAttribute("style", "border-radius: 50%;box-shadow: 0px 0px 5px black;position: relative");
+                        boton.setAttribute("style", "border-radius: 50%;box-shadow: 0px 0px 5px black;position: relative;");
                         boton.setAttribute("class", "btn btn-primary");
                         boton.setAttribute("id", "desaparece");
                         boton.setAttribute("onclick", "reiniciar()");

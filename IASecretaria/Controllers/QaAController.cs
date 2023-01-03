@@ -5,16 +5,22 @@ using Microsoft.CognitiveServices.Speech.Audio;
 using Microsoft.CognitiveServices.Speech;
 using Newtonsoft.Json;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.EntityFrameworkCore;
 
 namespace IASecretaria.Controllers
 {
     public class QaAController : Controller
     {
         private readonly QaAServices _QaAservices;
-        public QaAController(QaAServices qaAservices)
+        private readonly SecretariaHokmaContext _context;
+        public QaAController(QaAServices qaAservices, SecretariaHokmaContext context)
         {
             _QaAservices = qaAservices;
+            _context = context;
         }
+
+      
+        
 
         // Metodo que se encarga de convertir la voz a texto
         public async Task<string> ReconocimientoVoz(SpeechConfig speechConfig)
@@ -112,25 +118,45 @@ namespace IASecretaria.Controllers
         //Metodo que de acuerdo a la intencion retorna una imagen
         public string videoPeticion(string intencion)
         {
-            // Se evalua la intencion y de acuerdo a la misma se retorna una imagen a la vista
-            switch (intencion)
+            var secretariaHokmaContext = _context.Videos.Include(v => v.Intenciones);
+            var listarVideos = secretariaHokmaContext.ToListAsync().Result;
+            var objectJson = listarVideos.Count;
+            var contador = 0;
+            for (var i=0; i<listarVideos.Count; i++)
             {
-                case "Saludo":
-                    return ViewBag.saludo = "https://cdn.domestika.org/c_limit,dpr_auto,f_auto,q_auto,w_820/v1586839695/content-items/004/191/065/LOOP__SALUDANDO-original.gif?1586839695"; 
+                if(listarVideos[i].Intenciones.Descripcion == intencion)
+                {
+                    ViewBag.Saludo = listarVideos[i].Descripcion;
                     break;
-                case "Despedida":
-                    return ViewBag.saludo = "https://pa1.narvii.com/6955/5c74426ec29e927901e1f1152a88b317808fe3cdr1-500-280_hq.gif";
-                    break;
-                case "Preguntas empleados":
-                    return ViewBag.saludo = "https://gifimage.net/wp-content/uploads/2018/04/personas-hablando-gif-animados.gif";
-                    break;
-                case "Preguntas empresa":
-                    return ViewBag.saludo = "https://gifimage.net/wp-content/uploads/2018/04/personas-hablando-gif-animados.gif";
-                    break;
-                default:
-                    return ViewBag.saludo = "https://images.emojiterra.com/google/android-11/512px/2753.png";
-                    break;
+                }
+                contador++;
             }
+            if (contador == listarVideos.Count)
+            {
+                ViewBag.Saludo = "https://images.emojiterra.com/google/android-11/512px/2753.png";
+            }
+
+            // Se valua la intencion y de acuerdo a la misma se retorna una imagen a la vista
+            //switch (intencion)
+            //{
+            //    case "Saludo":
+            //        return ViewBag.saludo = "https://cdn.domestika.org/c_limit,dpr_auto,f_auto,q_auto,w_820/v1586839695/content-items/004/191/065/LOOP__SALUDANDO-original.gif?1586839695"; 
+            //        break;
+            //    case "Despedida":
+            //        return ViewBag.saludo = "https://pa1.narvii.com/6955/5c74426ec29e927901e1f1152a88b317808fe3cdr1-500-280_hq.gif";
+            //        break;
+            //    case "Preguntas empleados":
+            //        return ViewBag.saludo = "https://gifimage.net/wp-content/uploads/2018/04/personas-hablando-gif-animados.gif";
+            //        break;
+            //    case "Preguntas empresa":
+            //        return ViewBag.saludo = "https://gifimage.net/wp-content/uploads/2018/04/personas-hablando-gif-animados.gif";
+            //        break;
+            //    default:
+            //        return ViewBag.saludo = "https://images.emojiterra.com/google/android-11/512px/2753.png";
+            //        break;
+            //}
+
+            return ViewBag.Saludo;
 
         }
 

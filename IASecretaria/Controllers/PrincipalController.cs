@@ -35,8 +35,9 @@ namespace IASecretaria.Controllers
 
             // Crea una nueva instancia de la clase QaAServices
             QaAServices qaAServices = new QaAServices();
+            SecretariaHokmaContext secretariaHokmaContext = new SecretariaHokmaContext();
             // Crea una nueva instancia de la clase QaAController
-            QaAController qaAController = new QaAController(qaAServices);
+            QaAController qaAController = new QaAController(qaAServices, secretariaHokmaContext);
             var speechConfig = SpeechConfig.FromSubscription("147d98b295e7495cae0589c5ce4d1cdd", "eastus");
             // Recibe la respuesta del del metodo que transforma la voz a texto
             var respuesta = await qaAController.ReconocimientoVoz(speechConfig);
