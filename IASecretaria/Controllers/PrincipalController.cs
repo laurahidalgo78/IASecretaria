@@ -50,6 +50,7 @@ namespace IASecretaria.Controllers
             respuestaVideo = qaAController.videoPeticion(respuestaPrediction);
             // Ejecuta el metodo que convierte el texto a voz
             await qaAController.ReconocimientoTexto(respuesta1, speechConfig);
+            qaAController.PeticionTeams("Buenas");
 
             ViewBag.resultado = respuestaPrediction;
             ViewBag.video = respuestaVideo;

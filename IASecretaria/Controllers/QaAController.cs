@@ -131,6 +131,30 @@ namespace IASecretaria.Controllers
             return resultadoPrediction;
         }
 
+        public bool PeticionTeams(string respuestaPeticion)
+        {
+            var resultadoPrediction = "";
+            string urlPrediction = "https://hokma.webhook.office.com/webhookb2/3593d646-9840-4714-95f6-8e0fb1b3738e@a86fafe3-4e52-41e3-a67c-2fd14ec57d11/IncomingWebhook/689319ce689f483d8121edd27f8c594a/4d8d468f-8599-41fe-9187-34e9add3e075";
+            if (respuestaPeticion == "")
+            {
+                resultadoPrediction = "None";
+            }
+            else
+            {
+                // Se incertan datos en el modelo
+                MensajeTeamsViewModel mensaje = new MensajeTeamsViewModel()
+                {
+                    text = respuestaPeticion,
+                };
+                // Se serializa el modelo
+                string serializePrediction = JsonConvert.SerializeObject(mensaje);
+                // Se ejecuta el el POST y guardamos la respuesta en una variable
+                _QaAservices.EjecutarPostTeams(serializePrediction, urlPrediction);
+                Console.WriteLine(resultadoPrediction);
+            }
+            return true;
+        }
+
         //Metodo que de acuerdo a la intencion retorna una imagen
         public string videoPeticion(string intencion)
         {
