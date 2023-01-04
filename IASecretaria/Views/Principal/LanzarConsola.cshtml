@@ -24,6 +24,7 @@
             color: #434343;
         }
     </style>
+    
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -39,7 +40,7 @@
         </div>
 
     </div>
- 
+   
  
     
   @if(ViewBag.hola == null)
@@ -63,17 +64,22 @@
                     var unicornioRojo = unicornio.respuesta;
                     var contenedor = document.getElementById("contenedorImagen");
 
-                    var imagen = document.createElement("img");
+                    var imagen = document.createElement("video");               
+                    var origen = document.createElement("source");
 
+
+                    origen.setAttribute("src", unicornioAzul);
+
+                    imagen.setAttribute("autoplay", "autoplay");
                     imagen.setAttribute("width", "600");
                     imagen.setAttribute("height", "500");
-                    imagen.setAttribute("class", "img");
                     imagen.setAttribute("id", "desaparece");
-                    imagen.setAttribute("src", unicornioAzul);
                     contenedor.appendChild(imagen);
+                    imagen.appendChild(origen);
+                    
 
                     var br = document.createElement("br");
-                    br.setAttribute("id", "desaparece")
+                    br.setAttribute("id", "desaparece");
                     contenedor.appendChild(br);
                     
 
@@ -131,14 +137,18 @@
                         var unicornioRojo = unicornio.respuesta;
                         var contenedor = document.getElementById("contenedorImagen");
                         
-                        var imagen = document.createElement("img");
+                        var imagen = document.createElement("video");
+                        var origen = document.createElement("source");
 
+                        origen.setAttribute("src", unicornioAzul);
+
+                        imagen.setAttribute("autoplay", "autoplay");
                         imagen.setAttribute("width", "600");
                         imagen.setAttribute("height", "500");
-                        imagen.setAttribute("class", "img");
                         imagen.setAttribute("id", "desaparece");
-                        imagen.setAttribute("src", unicornioAzul);
                         contenedor.appendChild(imagen);
+                        imagen.appendChild(origen);
+                       
 
                         var br = document.createElement("br");
                         br.setAttribute("id", "desaparece")
