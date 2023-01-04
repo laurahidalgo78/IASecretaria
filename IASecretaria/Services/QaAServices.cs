@@ -94,5 +94,36 @@ namespace IASecretaria.Services
             }
 
         }
+
+        // Realiza la peticion enviando un JSON a la API de Prediccion de intenciones
+        public void EjecutarPostTeams(string DatosAcceso, string urlApi)
+        {
+            try
+            {
+
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(urlApi);
+                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+
+                // ACCEPT header
+
+                var request = new HttpRequestMessage(HttpMethod.Post, urlApi);
+
+                // CONTENT-TYPE header
+
+                request.Content = new StringContent(DatosAcceso,
+                Encoding.UTF8, "application/json");
+
+
+                var ejemplo = client.SendAsync(request).ContinueWith(responseTask =>
+               responseTask.Result).Result;
+
+            }
+            catch (Exception ex)
+            {
+                _ = ex.Message;
+            }
+
+        }
     }
 }

@@ -41,26 +41,30 @@ namespace IASecretaria.Controllers
             var speechConfig = SpeechConfig.FromSubscription("147d98b295e7495cae0589c5ce4d1cdd", "eastus");
             // Recibe la respuesta del del metodo que transforma la voz a texto
             var respuesta = await qaAController.ReconocimientoVoz(speechConfig);
-
-            // Ejecuta el metodo PeticionQaA
-            respuesta1 = qaAController.PeticionQaA(respuesta);
             // Ejecuta el metodo PeticionPrediction
             respuestaPrediction = qaAController.PeticionPrediction(respuesta);
+            ViewBag.resultado = respuestaPrediction;
             // Ejecuta el metodo videoPeticion
             respuestaVideo = qaAController.videoPeticion(respuestaPrediction);
-            // Ejecuta el metodo que convierte el texto a voz
-            await qaAController.ReconocimientoTexto(respuesta1, speechConfig);
-
-            ViewBag.resultado = respuestaPrediction;
-            ViewBag.video = respuestaVideo;
-
-            
+            // Envia un mensaje al canal de Teams
+            //qaAController.PeticionTeams(respuesta);
             respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
             reconocimiento.respuesta = respuestaPrediction;
             reconocimiento.respuestaVideo = respuestaVideo;
             var jsonVideo = JsonConvert.SerializeObject(reconocimiento);
             ViewBag.hola = respuesta;
             return new JsonResult(jsonVideo);
+            // Ejecuta el metodo PeticionQaA
+            respuesta1 = await qaAController.PeticionQaA(respuesta);
+            // Ejecuta el metodo que convierte el texto a voz
+            await qaAController.ReconocimientoTexto(respuesta1, speechConfig);
+
+            //var optionsParallelism = new ParallelOptions { MaxDegreeOfParallelism = 3 };
+
+            //await Parallel.ForEachAsync(respuesta1, optionsParallelism, async (speechConfig, _) =>
+            //{
+            //    await qaAController.PeticionPrediction(respuesta);
+            //});
 
         }
     }
