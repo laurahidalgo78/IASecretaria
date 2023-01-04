@@ -56,7 +56,7 @@ namespace IASecretaria.Controllers
         public async Task<string> PeticionQaA(string respuestaVoz)
         {
             var respuesta = "";
-            string url = "https://lr-luis.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=qaA-bot&api-version=2021-10-01&deploymentName=production";
+            string url = "https://secretariahokma.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=QqaA-bot&api-version=2021-10-01&deploymentName=production";
             // Se incertan datos en el modelo
             if (respuestaVoz == "")
             {
@@ -92,7 +92,7 @@ namespace IASecretaria.Controllers
         public string PeticionPrediction(string respuestaPeticion)
         {
             var resultadoPrediction = "";
-            string urlPrediction = "https://lr-luis.cognitiveservices.azure.com/language/:analyze-conversations?api-version=2022-10-01-preview";
+            string urlPrediction = "https://secretariahokma.cognitiveservices.azure.com/language/:analyze-conversations?api-version=2022-10-01-preview";
             if (respuestaPeticion == "")
             {
                 resultadoPrediction = "None";
@@ -118,7 +118,7 @@ namespace IASecretaria.Controllers
                     {
                         projectName = "Secretarie",
                         verbose = true,
-                        deploymentName = "DeploySecretarie",
+                        deploymentName = "Secretarie-deploy",
                         stringIndexType = "TextElement_V8",
                     }
                 };

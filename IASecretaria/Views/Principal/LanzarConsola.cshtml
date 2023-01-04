@@ -71,18 +71,69 @@
                     origen.setAttribute("src", unicornioAzul);
 
                     imagen.setAttribute("autoplay", "autoplay");
+                    imagen.setAttribute("muted", "");
                     imagen.setAttribute("width", "600");
                     imagen.setAttribute("height", "500");
                     imagen.setAttribute("id", "desaparece");
                     contenedor.appendChild(imagen);
                     imagen.appendChild(origen);
-                    
 
                     var br = document.createElement("br");
                     br.setAttribute("id", "desaparece");
                     contenedor.appendChild(br);
                     
 
+                    var boton = document.createElement("button");
+                    boton.setAttribute("style", "border-radius: 50%;box-shadow: 0px 0px 5px black;position: relative");
+                    boton.setAttribute("class", "btn btn-primary");
+                    boton.setAttribute("id", "desaparece");
+                    boton.setAttribute("onclick", "reiniciar()");
+                    var icon = document.createElement("i");
+                    icon.setAttribute("class", "material-icons dp48");
+                    var textIcon = document.createTextNode("keyboard_voice");
+                    icon.appendChild(textIcon);
+                    boton.appendChild(icon);
+                    contenedor.appendChild(boton);
+                    var boton = document.querySelector('button#desaparece');
+                    document.querySelector("video#desaparece").addEventListener('ended', video2, false);
+                    boton.addEventListener('click', function(event){
+                    $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("BotFunction", "Principal", new { Area = "" })/",
+                    success: function(result){
+                    }
+                    });
+                });
+
+                }
+            });
+        </script>
+        <script>
+            function video2(){
+                var endedvideo = document.querySelectorAll("#desaparece");
+                for(i=0;i<endedvideo.length;i++){
+                    endedvideo[i].remove();
+                }
+                var contenedor = document.getElementById("contenedorImagen");
+
+                    var imagen = document.createElement("video");               
+                    var origen = document.createElement("source");
+
+
+                    origen.setAttribute("src", "https://user-images.githubusercontent.com/69684654/210652135-abb7554d-c673-4552-b46b-dca4139ee7dc.mp4");
+
+                    imagen.setAttribute("autoplay", "autoplay");
+                    imagen.setAttribute("muted", "muted");
+                    imagen.setAttribute("width", "600");
+                    imagen.setAttribute("height", "500");
+                    imagen.setAttribute("id", "desaparece");
+                    imagen.setAttribute("loop", "");
+                    contenedor.appendChild(imagen);
+                    imagen.appendChild(origen);
+
+                    var br = document.createElement("br");
+                    br.setAttribute("id", "desaparece");
+                    contenedor.appendChild(br);
                     var boton = document.createElement("button");
                     boton.setAttribute("style", "border-radius: 50%;box-shadow: 0px 0px 5px black;position: relative");
                     boton.setAttribute("class", "btn btn-primary");
@@ -103,9 +154,7 @@
                     }
                     });
                 });
-
-                }
-            });
+            }
         </script>
         <script>
             $.ajax({
@@ -117,7 +166,7 @@
             });
         </script>
         <script>
-            function reiniciar(){  
+            function reiniciar(){ 
                 $("button").css("background", "green");
                 $.ajax({
                     type: 'POST',
@@ -174,6 +223,7 @@
                                 }
                             });
                         });
+                        document.querySelector("video#desaparece").addEventListener('ended', video2, false);
                     }
                 });
             }

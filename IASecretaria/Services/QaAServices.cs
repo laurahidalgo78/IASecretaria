@@ -17,7 +17,7 @@ namespace IASecretaria.Services
                 // Configura la Url a la que se le va a hacer la peticion
                 client.BaseAddress = new Uri(urlApi);
                 // Añade los headers a la Api para hacer la peticion
-                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "77fe100e81eb4e9fbd8696f69a5fe4bb");
+                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "b29ad334b7dd4102a17012758674b63d");
                 client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
@@ -59,7 +59,7 @@ namespace IASecretaria.Services
 
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(urlApi);
-                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "77fe100e81eb4e9fbd8696f69a5fe4bb");
+                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "b29ad334b7dd4102a17012758674b63d");
                 client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
                 //client.DefaultRequestHeaders.Add("Content-Type", "application/json");
