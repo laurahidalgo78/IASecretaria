@@ -88,9 +88,26 @@
                     icon.appendChild(textIcon);
                     boton.appendChild(icon);
                     contenedor.appendChild(boton);
-
+                    var boton = document.querySelector('button#desaparece');
+                    boton.addEventListener('click', function(event){
+                    $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("BotFunction", "Principal", new { Area = "" })/",
+                    success: function(result){
+                    }
+                    });
+                });
 
                 }
+            });
+        </script>
+        <script>
+            $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("BotFunction", "Principal", new { Area = "" })/",
+                    success: function(result){
+                        
+                    }
             });
         </script>
         <script>
@@ -138,15 +155,20 @@
                         icon.appendChild(textIcon);
                         boton.appendChild(icon);
                         contenedor.appendChild(boton);
-
+                        var boton = document.querySelector('button#desaparece');
+                        boton.addEventListener('click', function (event) {
+                            $.ajax({
+                                type: 'POST',
+                                url: "@Url.Action("BotFunction", "Principal", new { Area = "" })/",
+                                success: function (result) {
+                                }
+                            });
+                        });
                     }
                 });
             }
         </script>
     }
-    
-   
-
 
 </body>
 

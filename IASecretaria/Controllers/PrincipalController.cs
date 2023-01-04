@@ -48,16 +48,13 @@ namespace IASecretaria.Controllers
             respuestaVideo = qaAController.videoPeticion(respuestaPrediction);
             // Envia un mensaje al canal de Teams
             //qaAController.PeticionTeams(respuesta);
+
             respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
             reconocimiento.respuesta = respuestaPrediction;
             reconocimiento.respuestaVideo = respuestaVideo;
             var jsonVideo = JsonConvert.SerializeObject(reconocimiento);
             ViewBag.hola = respuesta;
             return new JsonResult(jsonVideo);
-            // Ejecuta el metodo PeticionQaA
-            respuesta1 = await qaAController.PeticionQaA(respuesta);
-            // Ejecuta el metodo que convierte el texto a voz
-            await qaAController.ReconocimientoTexto(respuesta1, speechConfig);
 
             //var optionsParallelism = new ParallelOptions { MaxDegreeOfParallelism = 3 };
 
@@ -66,6 +63,21 @@ namespace IASecretaria.Controllers
             //    await qaAController.PeticionPrediction(respuesta);
             //});
 
+        }
+
+        public async void BotFunction()
+        {
+            // Crea una nueva instancia de la clase QaAServices
+            QaAServices qaAServices = new QaAServices();
+            SecretariaHokmaContext secretariaHokmaContext = new SecretariaHokmaContext();
+            // Crea una nueva instancia de la clase QaAController
+            QaAController qaAController = new QaAController(qaAServices, secretariaHokmaContext);
+            var speechConfig = SpeechConfig.FromSubscription("147d98b295e7495cae0589c5ce4d1cdd", "eastus");
+            var respuesta = qaAController.ReconocimientoVoz(speechConfig);
+            // Ejecuta el metodo PeticionQaA
+            var respuesta1 = qaAController.PeticionQaA(respuesta.Result);
+            // Ejecuta el metodo que convierte el texto a voz
+            await qaAController.ReconocimientoTexto(respuesta1.Result, speechConfig);
         }
     }
 }
