@@ -34,7 +34,7 @@
     <div class="card">
         <div class="card-body">
             <center id="contenedorImagen">
-
+                @*<video loop autoplay muted><source src="https://user-images.githubusercontent.com/69684654/210652135-abb7554d-c673-4552-b46b-dca4139ee7dc.mp4"></source></video>*@
             </center>
 
         </div>
@@ -45,6 +45,34 @@
     
   @if(ViewBag.hola == null)
     {
+        <script>
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("Principal", "Principal", new { Area = "" })/",
+                data: { nose: "1" },
+                success: function (result) {
+                    var contenedor = document.getElementById("contenedorImagen");
+
+                    var imagen = document.createElement("video");
+                    var origen = document.createElement("source");
+
+
+                    origen.setAttribute("src", "https://user-images.githubusercontent.com/69684654/210652135-abb7554d-c673-4552-b46b-dca4139ee7dc.mp4");
+
+                    imagen.setAttribute("autoplay", "autoplay");
+                    imagen.setAttribute("muted", "");
+                    imagen.setAttribute("width", "600");
+                    imagen.setAttribute("height", "500");
+                    imagen.setAttribute("id", "desaparece");
+                    contenedor.appendChild(imagen);
+                    imagen.appendChild(origen);
+
+                    var br = document.createElement("br");
+                    br.setAttribute("id", "desaparece");
+                    contenedor.appendChild(br);
+                }
+            });
+        </script>
         <script>
             $.ajax({
                 type: 'POST',
