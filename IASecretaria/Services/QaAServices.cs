@@ -125,5 +125,49 @@ namespace IASecretaria.Services
             }
 
         }
+
+        public bool EjecutarPostEnviarSMS(string DatosAcceso, string urlApi)
+        {
+            try
+            {
+                // Crea una nueva instancia de HttpClient
+                HttpClient client = new HttpClient();
+                // Configura la Url a la que se le va a hacer la peticion
+                client.BaseAddress = new Uri(urlApi);
+                // Añade los headers a la Api para hacer la peticion
+                client.DefaultRequestHeaders.Add("Authorization", "Basic cGF1bG8uZGVsYWNydXpAaG9rbWEuYWk6UGNkbGNlMzIxTGxicjMyMTBvJA==");
+                client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+
+                // ACCEPT header
+
+                var request = new HttpRequestMessage(HttpMethod.Post, urlApi);
+
+                // CONTENT-TYPE header
+
+                request.Content = new StringContent(DatosAcceso,
+                Encoding.UTF8, "application/json");
+
+                // Realiza la peticion y recibe la respuesta
+                var ejemplo = client.SendAsync(request).ContinueWith(responseTask =>
+               responseTask.Result).Result;
+
+                // Lee el contenido de la peticion y lo guarda en una variable
+                //var respuestabonita = ejemplo.Content.ReadAsStringAsync();
+                // Convierte el contenido de la peticion en string
+                //var deserializacion = respuestabonita.Result.ToString();
+                // Deserializa el Json y lo guarda en el modelo RespuestaQaA
+                //var jsonserialize = JsonConvert.DeserializeObject<RespuestaQaA>(deserializacion);
+
+                // Retorna la respuesta de la api
+                return true/*jsonserialize.answers[0].answer*/;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
     }
 }

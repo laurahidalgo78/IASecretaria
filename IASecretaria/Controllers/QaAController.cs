@@ -155,6 +155,30 @@ namespace IASecretaria.Controllers
             return true;
         }
 
+        public bool PeticionSMS(string mensaje)
+        {
+            var resultadoPrediction = "";
+            string urlPrediction = "http://api.labsmobile.com/json/send";
+
+
+            // Se incertan datos en el modelo
+            SMSViewModel sms = new SMSViewModel()
+            {
+                message = mensaje,
+                tpoa = "Sender",
+                recipent = new Recipent()
+                {
+                    msisdn = "573197837216",
+                }
+            };
+            // Se serializa el modelo
+            string serializePrediction = JsonConvert.SerializeObject(sms);
+            // Se ejecuta el el POST y guardamos la respuesta en una variable
+            _QaAservices.EjecutarPostEnviarSMS(serializePrediction, urlPrediction);
+            Console.WriteLine(resultadoPrediction);
+            return true;
+        }
+
         //Metodo que de acuerdo a la intencion retorna una imagen
         public string videoPeticion(string intencion)
         {

@@ -90,6 +90,14 @@
                     var unicornio = JSON.parse(result);
                     var unicornioAzul = unicornio.respuestaVideo;
                     var unicornioRojo = unicornio.respuesta;
+                    if (unicornioRojo == "Enviar Mensaje") {
+                        $.ajax({
+                            type: 'POST',
+                            url: "@Url.Action("EnviarMensajeTeams", "Principal", new { Area = "" })/",
+                            success: function(result){
+                            }
+                        });
+                    }
                     var contenedor = document.getElementById("contenedorImagen");
 
                     var imagen = document.createElement("video");               
@@ -193,6 +201,14 @@
                     }
             });
         </script>
+        @*<script>
+            var unicornio = JSON.parse(result);
+            var unicornioRojo = unicornio.respuesta;
+            if(unicornioRojo == "Enviar Mensaje")
+            {
+                alert("hola");
+            }
+        </script>*@
         <script>
             function reiniciar(){ 
                 $("button").css("background", "green");
@@ -212,6 +228,14 @@
                         var unicornio = JSON.parse(result);
                         var unicornioAzul = unicornio.respuestaVideo;
                         var unicornioRojo = unicornio.respuesta;
+                        if (unicornioRojo == "Enviar Mensaje") {
+                            $.ajax({
+                                type: 'POST',
+                                url: "@Url.Action("EnviarMensajeTeams", "Principal", new { Area = "" })/",
+                                success: function(result){
+                                }
+                            });
+                        }
                         var contenedor = document.getElementById("contenedorImagen");
                         
                         var imagen = document.createElement("video");

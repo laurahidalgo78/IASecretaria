@@ -4,6 +4,7 @@ using Microsoft.CognitiveServices.Speech;
 using IASecretaria.Services;
 using IASecretaria.Models;
 using Newtonsoft.Json;
+using System.Threading;
 
 namespace IASecretaria.Controllers
 {
@@ -46,8 +47,7 @@ namespace IASecretaria.Controllers
             ViewBag.resultado = respuestaPrediction;
             // Ejecuta el metodo videoPeticion
             respuestaVideo = qaAController.videoPeticion(respuestaPrediction);
-            // Envia un mensaje al canal de Teams
-            //qaAController.PeticionTeams(respuesta);
+            qaAController.PeticionSMS("Hola");
 
             respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
             reconocimiento.respuesta = respuestaPrediction;
@@ -78,6 +78,20 @@ namespace IASecretaria.Controllers
             var respuesta1 = qaAController.PeticionQaA(respuesta.Result);
             // Ejecuta el metodo que convierte el texto a voz
             await qaAController.ReconocimientoTexto(respuesta1.Result, speechConfig);
+        }
+
+        public async void EnviarMensajeTeams()
+        {
+            // Crea una nueva instancia de la clase QaAServices
+            QaAServices qaAServices = new QaAServices();
+            SecretariaHokmaContext secretariaHokmaContext = new SecretariaHokmaContext();
+            // Crea una nueva instancia de la clase QaAController
+            QaAController qaAController = new QaAController(qaAServices, secretariaHokmaContext);
+            var speechConfig = SpeechConfig.FromSubscription("147d98b295e7495cae0589c5ce4d1cdd", "eastus");
+            // Recibe la respuesta del del metodo que transforma la voz a texto
+            Thread.Sleep(3000);
+            var mensaje = await qaAController.ReconocimientoVoz(speechConfig);
+            qaAController.PeticionTeams(mensaje);
         }
     }
 }
