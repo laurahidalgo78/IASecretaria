@@ -1,5 +1,10 @@
-﻿using IASecretaria.Models;
+﻿using Azure.Core;
+using IASecretaria.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
 using Newtonsoft.Json;
+using RestSharp;
+using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -125,7 +130,19 @@ namespace IASecretaria.Services
             }
 
         }
-
+        public void EnviarSMS(string DatosAcceso, string url)
+        {
+            RestRequest request = new RestRequest();
+            RestClient client = new RestClient();
+            client = new RestClient(url);
+            client.Options(new RestRequest() { Timeout = -1 });
+            request = new RestRequest(url, RestSharp.Method.Post);
+            request.AddHeader("Authorization", "Basic cGF1bG8uZGVsYWNydXpAaG9rbWEuYWk6UGNkbGNlMzIxTGxicjMyMTBvJA==");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("application/json", DatosAcceso, ParameterType.RequestBody);
+            RestResponse response = client.Execute(request);
+            Console.WriteLine(response.Content);
+        }
         public bool EjecutarPostEnviarSMS(string DatosAcceso, string urlApi)
         {
             try
@@ -136,6 +153,7 @@ namespace IASecretaria.Services
                 client.BaseAddress = new Uri(urlApi);
                 // Añade los headers a la Api para hacer la peticion
                 client.DefaultRequestHeaders.Add("Authorization", "Basic cGF1bG8uZGVsYWNydXpAaG9rbWEuYWk6UGNkbGNlMzIxTGxicjMyMTBvJA==");
+                client.DefaultRequestHeaders.Add("Content-Type", "application/json");
                 client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));

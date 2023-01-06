@@ -47,7 +47,7 @@ namespace IASecretaria.Controllers
             ViewBag.resultado = respuestaPrediction;
             // Ejecuta el metodo videoPeticion
             respuestaVideo = qaAController.videoPeticion(respuestaPrediction);
-            qaAController.PeticionSMS("Hola");
+            qaAController.PeticionSMS("hola", "+573203764742");
 
             respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
             reconocimiento.respuesta = respuestaPrediction;
