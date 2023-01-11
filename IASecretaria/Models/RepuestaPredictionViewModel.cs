@@ -6,12 +6,18 @@
         public double confidenceScore { get; set; }
     }
 
+    public class Entities
+    {
+        public string category { get; set; }
+        public string text { get; set; }
+    }
+
     public class Prediction2
     {
         public string topIntent { get; set; }
         public string projectKind { get; set; }
         public List<Intent> intents { get; set; }
-        public List<object> entities { get; set; }
+        public List<Entities> entities { get; set; }      
     }
 
     public class Result

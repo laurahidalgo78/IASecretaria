@@ -17,13 +17,15 @@ public partial class SecretariaHokmaContext : DbContext
 
     public virtual DbSet<Intencione> Intenciones { get; set; }
 
+    public virtual DbSet<Persona> Personas { get; set; }
+
+    public virtual DbSet<TipoContacto> TipoContactos { get; set; }
+
     public virtual DbSet<Video> Videos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=HOKMA_009\\SQLEXPRESS01;Database=SecretariaHokma;User ID=HOKMA_009\\julian.gonzalez;TrustServerCertificate=true;Encrypt=True;Trusted_Connection=True");
-    //Server=HOKMA-010\\SQLEXPRESS;Database=SecretariaHokma;User ID=hokma;Password=dylanmajo78;TrustServerCertificate=true;Encrypt=True;Trusted_Connection=True
-    //Server=HOKMA_009\SQLEXPRESS01;Database=SecretariaHokma;User ID=HOKMA_009\julian.gonzalez;TrustServerCertificate=true;Encrypt=True;Trusted_Connection=True
+        => optionsBuilder.UseSqlServer("Server=HOKMA-010\\SQLEXPRESS;Database=SecretariaHokma;User ID=hokma;Password=dylanmajo78;TrustServerCertificate=true;Encrypt=True;Trusted_Connection=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -38,6 +40,50 @@ public partial class SecretariaHokmaContext : DbContext
                 .HasColumnName("intencionesId");
             entity.Property(e => e.Descripcion)
                 .HasMaxLength(125)
+                .IsUnicode(false)
+                .HasColumnName("descripcion");
+        });
+
+        modelBuilder.Entity<Persona>(entity =>
+        {
+            entity.HasKey(e => e.Idpersona).HasName("PK__persona__5C5C1E28479AF010");
+
+            entity.ToTable("persona");
+
+            entity.Property(e => e.Idpersona)
+                .ValueGeneratedNever()
+                .HasColumnName("idpersona");
+            entity.Property(e => e.Apellido)
+                .HasMaxLength(250)
+                .IsUnicode(false)
+                .HasColumnName("apellido");
+            entity.Property(e => e.Contacto)
+                .HasMaxLength(250)
+                .IsUnicode(false)
+                .HasColumnName("contacto");
+            entity.Property(e => e.IdtipoContacto).HasColumnName("idtipo_contacto");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(250)
+                .IsUnicode(false)
+                .HasColumnName("nombre");
+
+            entity.HasOne(d => d.IdtipoContactoNavigation).WithMany(p => p.Personas)
+                .HasForeignKey(d => d.IdtipoContacto)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_persona_tipo_contacto");
+        });
+
+        modelBuilder.Entity<TipoContacto>(entity =>
+        {
+            entity.HasKey(e => e.IdtipoContacto).HasName("PK__tipo_con__CA2FCA8FBD465E5D");
+
+            entity.ToTable("tipo_contacto");
+
+            entity.Property(e => e.IdtipoContacto)
+                .ValueGeneratedNever()
+                .HasColumnName("idtipo_contacto");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(250)
                 .IsUnicode(false)
                 .HasColumnName("descripcion");
         });

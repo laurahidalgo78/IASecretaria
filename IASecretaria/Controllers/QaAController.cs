@@ -45,7 +45,7 @@ namespace IASecretaria.Controllers
         public async Task ReconocimientoTexto(string respuesta1, SpeechConfig config)
         {
             // Permite Cambiar la voz del interprete
-            config.SpeechSynthesisVoiceName = "es-MX-JorgeNeural";
+            config.SpeechSynthesisVoiceName = "es-co-GonzaloNeural";
             // Crea una nueva instancia del Speech
             using var synthesizer = new SpeechSynthesizer(config);
             // Convierte el texto a voz
@@ -131,6 +131,50 @@ namespace IASecretaria.Controllers
             return resultadoPrediction;
         }
 
+        public string PeticionPredictionNombre(string respuestaPeticion)
+        {
+            var resultadoPrediction = "";
+            string urlPrediction = "https://secretariahokma.cognitiveservices.azure.com/language/:analyze-conversations?api-version=2022-10-01-preview";
+            if (respuestaPeticion == "")
+            {
+                resultadoPrediction = "None";
+            }
+            else
+            {
+                // Se incertan datos en el modelo
+                Prediction prediction = new Prediction()
+                {
+                    kind = "Conversation",
+                    analysisInput = new AnalysisInput()
+                    {
+                        conversationItem = new ConversationItem()
+                        {
+                            id = "1",
+                            text = respuestaPeticion,
+                            modality = "text",
+                            language = "en",
+                            participantId = "1",
+                        }
+                    },
+                    parameters = new Parameters()
+                    {
+                        projectName = "Secretarie",
+                        verbose = true,
+                        deploymentName = "Secretarie-deploy",
+                        stringIndexType = "TextElement_V8",
+                    }
+                };
+                // Se serializa el modelo
+                string serializePrediction = JsonConvert.SerializeObject(prediction);
+                // Se ejecuta el el POST y guardamos la respuesta en una variable
+                resultadoPrediction = _QaAservices.EjecutarPostPredictionNombre(serializePrediction, urlPrediction);
+                Console.WriteLine(resultadoPrediction);
+            }
+            return resultadoPrediction;
+        }
+
+
+
         public bool PeticionTeams(string respuestaPeticion)
         {
             var resultadoPrediction = "";
@@ -155,7 +199,7 @@ namespace IASecretaria.Controllers
             return true;
         }
 
-        public void PeticionSMS(string mensaje, string numero)
+        public async Task<string> PeticionSMS(string mensaje, string numero)
         {
             string urlPrediction = "http://api.labsmobile.com/json/send";
 
@@ -181,7 +225,9 @@ namespace IASecretaria.Controllers
             string serializeSMS = JsonConvert.SerializeObject(sms);
             // Se ejecuta el el POST y guardamos la respuesta en una variable
             _QaAservices.EnviarSMS(serializeSMS, urlPrediction);
+            return "";
         }
+        
 
         //Metodo que de acuerdo a la intencion retorna una imagen
         public string videoPeticion(string intencion)
@@ -209,6 +255,36 @@ namespace IASecretaria.Controllers
             return ViewBag.Saludo;
 
         }
+
+        public async Task<string> NombrePeticion(string nombre)
+        {
+            var secretariaHokmaContext = _context.Personas.Include(p => p.IdtipoContactoNavigation);
+            var listarNombres = await secretariaHokmaContext.ToListAsync();
+            var objectJson = listarNombres.Count;
+            var personaContacto = "";
+            var contador = 0;
+            for (var i = 0; i < listarNombres.Count; i++)
+            {
+                if (listarNombres[i].Nombre == nombre)
+                {
+                    personaContacto = listarNombres[i].Contacto;
+                    break;
+                }
+                else if (listarNombres[i].Apellido== nombre)
+                {
+                    personaContacto = listarNombres[i].Contacto;
+                    break;
+                }
+            }
+
+
+
+            // Se valua la intencion y de acuerdo a la misma se retorna una imagen a la vista
+
+            return personaContacto;
+
+        }
+
 
     }
 }

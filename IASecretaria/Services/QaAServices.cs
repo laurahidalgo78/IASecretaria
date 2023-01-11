@@ -58,6 +58,7 @@ namespace IASecretaria.Services
         }
         // Realiza la peticion enviando un JSON a la API de Prediccion de intenciones
         public string EjecutarPostPrediction(string DatosAcceso, string urlApi)
+        
         {
             try
             {
@@ -91,6 +92,51 @@ namespace IASecretaria.Services
 
 
                 return jsonserialize.result.prediction.topIntent;
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        public string EjecutarPostPredictionNombre(string DatosAcceso, string urlApi)
+        {
+            try
+            {
+
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(urlApi);
+                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "b29ad334b7dd4102a17012758674b63d");
+                client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+                //client.DefaultRequestHeaders.Add("Content-Type", "application/json");
+                //client.DefaultRequestHeaders.Add("Connection", "keep-alive");
+                //client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate, br");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+
+                // ACCEPT header
+
+                var request = new HttpRequestMessage(HttpMethod.Post, urlApi);
+
+                // CONTENT-TYPE header
+
+                request.Content = new StringContent(DatosAcceso,
+                Encoding.UTF8, "application/json");
+
+
+                var ejemplo = client.SendAsync(request).ContinueWith(responseTask =>
+               responseTask.Result).Result;
+
+                var respuestabonita = ejemplo.Content.ReadAsStringAsync();
+                var deserializacion = respuestabonita.Result.ToString();
+                var jsonserialize = JsonConvert.DeserializeObject<RespuestaPrediction>(deserializacion);
+                var entidades = jsonserialize.result.prediction.entities[0].text;
+                
+
+
+                return entidades;
 
             }
             catch (Exception ex)
