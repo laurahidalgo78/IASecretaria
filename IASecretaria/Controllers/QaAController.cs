@@ -95,7 +95,7 @@ namespace IASecretaria.Controllers
             string urlPrediction = "https://secretariahokma.cognitiveservices.azure.com/language/:analyze-conversations?api-version=2022-10-01-preview";
             if (respuestaPeticion == "")
             {
-                resultadoPrediction = "None";
+                resultadoPrediction = "None"; 
             }
             else
             {
