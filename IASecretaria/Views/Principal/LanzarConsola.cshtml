@@ -78,7 +78,7 @@
                 type: 'POST',
                 url: "@Url.Action("LanzarConsola", "Principal", new { Area = "" })/",
                 data: { nose: "1" },
-                success: function (result) {
+                success: function video (result) {
                    var desaparecerObject = document.querySelectorAll("#desaparece");
                     if(desaparecerObject != null)
                     {
@@ -89,15 +89,21 @@
                     }
                     var unicornio = JSON.parse(result);
                     var unicornioAzul = unicornio.respuestaVideo;
-                    var unicornioRojo = unicornio.respuesta;
+                    var unicornioRojo = unicornio.respuesta; 
                     if (unicornioRojo == "Enviar Mensaje") {
                         $.ajax({
                             type: 'POST',
                             url: "@Url.Action("EnviarMensajeTeams", "Principal", new { Area = "" })/",
                             success: function(result){
+                            var controlTeams = JSON.parse(result)
+                            if (controlTeams.controlTeams == true){
+                            var videoHabla = document.querySelector("video#desaparece");
+                            videoHabla.src = unicornioAzul;
+                            alert(controlTeams.controlTeamsMensaje);
+                            }
                             }
                         });
-                    } 
+                    }
                     var contenedor = document.getElementById("contenedorImagen");
 
                     var imagen = document.createElement("video");               
@@ -111,6 +117,7 @@
                     imagen.setAttribute("width", "600");
                     imagen.setAttribute("height", "500");
                     imagen.setAttribute("id", "desaparece");
+                    imagen.setAttribute("loop", "loop");
                     contenedor.appendChild(imagen);
                     imagen.appendChild(origen);
 
@@ -137,6 +144,12 @@
                     type: 'POST',
                     url: "@Url.Action("BotFunction", "Principal", new { Area = "" })/",
                     success: function(result){
+                        var control = JSON.parse(result)
+                        if (control.control == true){
+                            var videoHabla = document.querySelector("video#desaparece");
+                            videoHabla.pause();
+                            video2();
+                        }
                     }
                     });
                 });
@@ -187,16 +200,31 @@
                     type: 'POST',
                     url: "@Url.Action("BotFunction", "Principal", new { Area = "" })/",
                     success: function(result){
+                        var control = JSON.parse(result)
+                        if (control.control == true){
+                            var videoHabla = document.querySelector("video#desaparece");
+                            videoHabla.pause();
+                            video2();
+                        }
+                        
                     }
                     });
                 });
             }
+            
         </script>
         <script>
             $.ajax({
                     type: 'POST',
                     url: "@Url.Action("BotFunction", "Principal", new { Area = "" })/",
                     success: function(result){
+                        var control = JSON.parse(result)
+                        if (control.control == true){
+                            var videoHabla = document.querySelector("video#desaparece");
+                            videoHabla.pause();
+                            video2();
+                        }
+                        
                         
                     }
             });
@@ -272,6 +300,12 @@
                                 type: 'POST',
                                 url: "@Url.Action("BotFunction", "Principal", new { Area = "" })/",
                                 success: function (result) {
+                                    var control = JSON.parse(result)
+                                     if (control.control == true){
+                                        var videoHabla = document.querySelector("video#desaparece");
+                                        videoHabla.pause();
+                                        video2();
+                                     }
                                 }
                             });
                         });

@@ -247,7 +247,7 @@ namespace IASecretaria.Controllers
             }
             if (contador == listarVideos.Count)
             {
-                ViewBag.Saludo = "https://user-images.githubusercontent.com/69684654/210588248-2c9489ba-7fd0-4434-a270-35891c50198a.mp4";
+                ViewBag.Saludo = "https://user-images.githubusercontent.com/69684654/212172659-c1eb66a4-773b-4ea8-8a7d-35aeea181546.mp4";
             }
 
             // Se valua la intencion y de acuerdo a la misma se retorna una imagen a la vista

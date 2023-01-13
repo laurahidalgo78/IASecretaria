@@ -20,5 +20,10 @@
     {
         public string respuesta { get; set; }
         public string respuestaVideo { get; set; }
+        public bool control { get; set; }
+        public bool controlTeams { get; set; }
+        public bool controlTeamsMensaje { get; set; }
+        public bool controlMensajeTexto { get; set; }
+        public bool controlMensajeTextoMensaje { get; set; }
     }
 }

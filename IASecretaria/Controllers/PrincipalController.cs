@@ -57,6 +57,7 @@ namespace IASecretaria.Controllers
             respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
             reconocimiento.respuesta = respuestaPrediction;
             reconocimiento.respuestaVideo = respuestaVideo;
+
             var jsonVideo = JsonConvert.SerializeObject(reconocimiento);
 
             ViewBag.hola = respuesta;
@@ -74,7 +75,7 @@ namespace IASecretaria.Controllers
 
 
 
-        public async void BotFunction()
+        public async Task<JsonResult> BotFunction()
         {
             // Crea una nueva instancia de la clase QaAServices
             QaAServices qaAServices = new QaAServices();
@@ -85,11 +86,17 @@ namespace IASecretaria.Controllers
             var respuesta = qaAController.ReconocimientoVoz(speechConfig);
             // Ejecuta el metodo PeticionQaA
             var respuesta1 = qaAController.PeticionQaA(respuesta.Result);
+            Thread.Sleep(1000);
             // Ejecuta el metodo que convierte el texto a voz
             await qaAController.ReconocimientoTexto(respuesta1.Result, speechConfig);
+            respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
+            reconocimiento.control = true;
+            var jsonControl = JsonConvert.SerializeObject(reconocimiento);
+
+            return new JsonResult(jsonControl);
         }
 
-        public async void EnviarMensajeTeams()
+        public async Task<JsonResult>EnviarMensajeTeams()
         {
             // Crea una nueva instancia de la clase QaAServices
             QaAServices qaAServices = new QaAServices();
@@ -101,9 +108,17 @@ namespace IASecretaria.Controllers
             Thread.Sleep(3000);
             var mensaje = await qaAController.ReconocimientoVoz(speechConfig);
             qaAController.PeticionTeams(mensaje);
+            respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
+            reconocimiento.controlTeams = true;
+            var jsonControl = JsonConvert.SerializeObject(reconocimiento);
+            await qaAController.ReconocimientoTexto("Tu mensaje ha sido enviado con exito", speechConfig);
+            reconocimiento.controlTeamsMensaje = true;
+
+            return new JsonResult(jsonControl);
+
         }
 
-        public async void EnviarMensajeTexto(string contacto)
+        public async Task<JsonResult>EnviarMensajeTexto(string contacto)
         {
             // Crea una nueva instancia de la clase QaAServices
             QaAServices qaAServices = new QaAServices();
@@ -118,8 +133,14 @@ namespace IASecretaria.Controllers
             Thread.Sleep(3000);
             var mensaje = await qaAController.ReconocimientoVoz(speechConfig);
             qaAController.PeticionSMS(mensaje, contacto);
-            
-            
+
+            Thread.Sleep(2000);
+            await qaAController.ReconocimientoTexto("Tu mensaje ha sido enviado con exito", speechConfig);
+            respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
+            reconocimiento.controlMensajeTexto = true;
+            var jsonControl = JsonConvert.SerializeObject(reconocimiento);
+
+            return new JsonResult(jsonControl);
         }
     }
 }
