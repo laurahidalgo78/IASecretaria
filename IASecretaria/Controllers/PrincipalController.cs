@@ -141,7 +141,7 @@ namespace IASecretaria.Controllers
             // Recibe la respuesta del del metodo que transforma la voz a texto
             Thread.Sleep(3000);
             var mensaje = await qaAController.ReconocimientoVoz(speechConfig);
-            qaAController.PeticionSMS(mensaje, contacto);
+            await qaAController.PeticionSMS(mensaje, contacto);
 
             Thread.Sleep(2000);
             await qaAController.ReconocimientoTexto("Tu mensaje ha sido enviado con exito", speechConfig);
