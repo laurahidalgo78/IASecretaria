@@ -176,7 +176,7 @@ namespace IASecretaria.Controllers
 
 
 
-        public bool PeticionTeams(string respuestaPeticion)
+        public async Task<bool> PeticionTeams(string respuestaPeticion)
         {
             var resultadoPrediction = "";
             string urlPrediction = "https://hokma.webhook.office.com/webhookb2/3593d646-9840-4714-95f6-8e0fb1b3738e@a86fafe3-4e52-41e3-a67c-2fd14ec57d11/IncomingWebhook/689319ce689f483d8121edd27f8c594a/4d8d468f-8599-41fe-9187-34e9add3e075";
