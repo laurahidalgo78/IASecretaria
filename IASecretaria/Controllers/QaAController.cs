@@ -50,6 +50,7 @@ namespace IASecretaria.Controllers
             using var synthesizer = new SpeechSynthesizer(config);
             // Convierte el texto a voz
             await synthesizer.SpeakTextAsync(respuesta1);
+            Console.WriteLine(respuesta1);
         }
 
         // Metodo que ejecuta la peticion a la API de preguntas y respuestas
