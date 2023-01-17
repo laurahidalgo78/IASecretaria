@@ -95,12 +95,12 @@
                             type: 'POST',
                             url: "@Url.Action("EnviarMensajeTeams", "Principal", new { Area = "" })/",
                             success: function(result){
-                            var controlTeams = JSON.parse(result)
-                            if (controlTeams.controlTeams == true){
-                            var videoHabla = document.querySelector("video#desaparece");
-                            videoHabla.src = unicornioAzul;
-                            alert(controlTeams.controlTeamsMensaje);
-                            }
+                                var controlTeams = JSON.parse(result)
+                                if (controlTeams.controlTeams == true){
+                                    var videoHabla = document.querySelector("video#desaparece");
+                                    videoHabla.src = unicornioAzul;
+                                    alert(controlTeams.controlTeamsMensaje);
+                                }
                             }
                         });
                     }

@@ -109,10 +109,9 @@ namespace IASecretaria.Controllers
             var mensaje = await qaAController.ReconocimientoVoz(speechConfig);
             qaAController.PeticionTeams(mensaje);
             respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
-            reconocimiento.controlTeams = true;
             var jsonControl = JsonConvert.SerializeObject(reconocimiento);
             await qaAController.ReconocimientoTexto("Tu mensaje ha sido enviado con exito", speechConfig);
-            reconocimiento.controlTeamsMensaje = true;
+            reconocimiento.controlTeams = true;
 
             return new JsonResult(jsonControl);
 
