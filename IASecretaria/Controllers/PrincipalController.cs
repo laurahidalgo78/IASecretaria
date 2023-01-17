@@ -39,7 +39,7 @@ namespace IASecretaria.Controllers
             SecretariaHokmaContext secretariaHokmaContext = new SecretariaHokmaContext();
             // Crea una nueva instancia de la clase QaAController
             QaAController qaAController = new QaAController(qaAServices, secretariaHokmaContext);
-            var speechConfig = SpeechConfig.FromSubscription("147d98b295e7495cae0589c5ce4d1cdd", "eastus");
+            var speechConfig = SpeechConfig.FromSubscription("edc1030e34044a2ab44f0ce1f5be4aa7", "eastus");
             // Recibe la respuesta del del metodo que transforma la voz a texto
             var respuesta = await qaAController.ReconocimientoVoz(speechConfig);
             // Ejecuta el metodo PeticionPrediction
@@ -82,7 +82,7 @@ namespace IASecretaria.Controllers
             SecretariaHokmaContext secretariaHokmaContext = new SecretariaHokmaContext();
             // Crea una nueva instancia de la clase QaAController
             QaAController qaAController = new QaAController(qaAServices, secretariaHokmaContext);
-            var speechConfig = SpeechConfig.FromSubscription("147d98b295e7495cae0589c5ce4d1cdd", "eastus");
+            var speechConfig = SpeechConfig.FromSubscription("edc1030e34044a2ab44f0ce1f5be4aa7", "eastus");
             var respuesta = qaAController.ReconocimientoVoz(speechConfig);
             // Ejecuta el metodo PeticionQaA
             var respuesta1 = qaAController.PeticionQaA(respuesta.Result);
@@ -103,7 +103,7 @@ namespace IASecretaria.Controllers
             SecretariaHokmaContext secretariaHokmaContext = new SecretariaHokmaContext();
             // Crea una nueva instancia de la clase QaAController
             QaAController qaAController = new QaAController(qaAServices, secretariaHokmaContext);
-            var speechConfig = SpeechConfig.FromSubscription("147d98b295e7495cae0589c5ce4d1cdd", "eastus");
+            var speechConfig = SpeechConfig.FromSubscription("edc1030e34044a2ab44f0ce1f5be4aa7", "eastus");
             // Recibe la respuesta del del metodo que transforma la voz a texto
             Thread.Sleep(3000);
             var mensaje = await qaAController.ReconocimientoVoz(speechConfig);
@@ -126,7 +126,7 @@ namespace IASecretaria.Controllers
             // Crea una nueva instancia de la clase QaAController
             QaAController qaAController = new QaAController(qaAServices, secretariaHokmaContext);
 
-            var speechConfig = SpeechConfig.FromSubscription("147d98b295e7495cae0589c5ce4d1cdd", "eastus");
+            var speechConfig = SpeechConfig.FromSubscription("edc1030e34044a2ab44f0ce1f5be4aa7", "eastus");
             
             
             // Recibe la respuesta del del metodo que transforma la voz a texto
