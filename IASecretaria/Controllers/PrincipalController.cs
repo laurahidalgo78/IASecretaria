@@ -105,25 +105,22 @@ namespace IASecretaria.Controllers
             QaAController qaAController = new QaAController(qaAServices, secretariaHokmaContext);
             var speechConfig = SpeechConfig.FromSubscription("edc1030e34044a2ab44f0ce1f5be4aa7", "eastus");
             // Recibe la respuesta del del metodo que transforma la voz a texto
-            Thread.Sleep(3000);
+            Thread.Sleep(4000);
             var mensaje = await qaAController.ReconocimientoVoz(speechConfig);
-            await EnvioMensajeTeams(speechConfig, qaAController, reconocimiento, mensaje);
-            await qaAController.ReconocimientoTexto("Tu mensaje ha sido enviado con exito", speechConfig);
+            bool resultmessage = await qaAController.PeticionTeams(mensaje);
+            if (resultmessage)
+            {
+                await qaAController.ReconocimientoTexto("Tu mensaje ha sido enviado con exito", speechConfig);
+            }
+            else
+            {
+                await qaAController.ReconocimientoTexto("Tu mensaje no ha sido enviado", speechConfig);
+            }
             reconocimiento.controlTeamsMensaje = true;
             var jsonControl = JsonConvert.SerializeObject(reconocimiento);
 
 
             return new JsonResult(jsonControl);
-        }
-
-        private async Task<JsonResult> EnvioMensajeTeams(SpeechConfig speechConfig, QaAController qaAController, respuestaReconocimietoVoz reconocimiento, string mensaje)
-        {
-            bool resultmessage = await qaAController.PeticionTeams(mensaje);
-
-            reconocimiento.controlTeams = resultmessage;
-            var jsonmessage = JsonConvert.SerializeObject(reconocimiento);
-
-            return new JsonResult(jsonmessage);
         }
 
         public async Task<JsonResult>EnviarMensajeTexto(string contacto)
@@ -138,12 +135,18 @@ namespace IASecretaria.Controllers
             
             
             // Recibe la respuesta del del metodo que transforma la voz a texto
-            Thread.Sleep(3000);
+            Thread.Sleep(4000);
             var mensaje = await qaAController.ReconocimientoVoz(speechConfig);
             Thread.Sleep(1000);
-            await qaAController.PeticionSMS(mensaje, contacto);
-
-            await qaAController.ReconocimientoTexto("Tu mensaje ha sido enviado con exito", speechConfig);
+            string mensajeconfirmacion = await qaAController.PeticionSMS(mensaje, contacto);
+            if(mensajeconfirmacion == "Message has been successfully sent.")
+            {
+                await qaAController.ReconocimientoTexto("Tu mensaje ha sido enviado con exito", speechConfig);
+            }
+            else
+            {
+                await qaAController.ReconocimientoTexto("Tu mensaje no ha sido enviado", speechConfig);
+            }
             respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
             reconocimiento.controlMensajeTexto = true;
             var jsonControl = JsonConvert.SerializeObject(reconocimiento);

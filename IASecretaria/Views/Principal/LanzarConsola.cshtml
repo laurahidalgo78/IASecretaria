@@ -96,14 +96,12 @@
                             url: "@Url.Action("ConfirmacionMensajeTeams", "Principal", new { Area = "" })/",
                             success: function(result){
                                 var controlTeams = JSON.parse(result);
-                                if (controlTeams.controlTeams == true){
+                                if (controlTeams.controlTeamsMensaje == true){
                                     var videoHabla = document.querySelector("video#desaparece");
                                     setTimeout(
                                         function () {
                                             videoHabla.src = "https://user-images.githubusercontent.com/69684654/210652135-abb7554d-c673-4552-b46b-dca4139ee7dc.mp4";
                                         }, 3000);
-                                }
-                                if (controlTeams.controlTeamsMensaje == true) {
                                     videoHabla.setAttribute("src", "https://user-images.githubusercontent.com/69684654/212172659-c1eb66a4-773b-4ea8-8a7d-35aeea181546.mp4");
                                 }
                             }
@@ -285,14 +283,12 @@
                             url: "@Url.Action("ConfirmacionMensajeTeams", "Principal", new { Area = "" })/",
                             success: function(result){
                                 var controlTeams = JSON.parse(result);
-                                if (controlTeams.controlTeams == true){
+                                if (controlTeams.controlTeamsMensaje == true){
                                     var videoHabla = document.querySelector("video#desaparece");
                                     setTimeout(
                                         function () {
                                             videoHabla.src = "https://user-images.githubusercontent.com/69684654/210652135-abb7554d-c673-4552-b46b-dca4139ee7dc.mp4";
                                         }, 3000);
-                                }
-                                if (controlTeams.controlTeamsMensaje == true) {
                                     videoHabla.setAttribute("src", "https://user-images.githubusercontent.com/69684654/212172659-c1eb66a4-773b-4ea8-8a7d-35aeea181546.mp4");
                                 }
                             }

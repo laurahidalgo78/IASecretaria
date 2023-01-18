@@ -183,6 +183,7 @@ namespace IASecretaria.Controllers
             if (respuestaPeticion == "")
             {
                 resultadoPrediction = "None";
+                return false;
             }
             else
             {
@@ -194,10 +195,10 @@ namespace IASecretaria.Controllers
                 // Se serializa el modelo
                 string serializePrediction = JsonConvert.SerializeObject(mensaje);
                 // Se ejecuta el el POST y guardamos la respuesta en una variable
-                _QaAservices.EjecutarPostTeams(serializePrediction, urlPrediction);
+                bool resultadopeticion = await _QaAservices.EjecutarPostTeams(serializePrediction, urlPrediction);
                 Console.WriteLine(resultadoPrediction);
+                return resultadopeticion;
             }
-            return true;
         }
 
         public async Task<string> PeticionSMS(string mensaje, string numero)
@@ -225,8 +226,8 @@ namespace IASecretaria.Controllers
             // Se serializa el modelo
             string serializeSMS = JsonConvert.SerializeObject(sms);
             // Se ejecuta el el POST y guardamos la respuesta en una variable
-            _QaAservices.EnviarSMS(serializeSMS, urlPrediction);
-            return "";
+            string confirmacion = _QaAservices.EnviarSMS(serializeSMS, urlPrediction);
+            return confirmacion;
         }
         
 
