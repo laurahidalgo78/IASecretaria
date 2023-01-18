@@ -25,5 +25,6 @@
         public bool controlTeamsMensaje { get; set; }
         public bool controlMensajeTexto { get; set; }
         public bool controlMensajeTextoMensaje { get; set; }
+        public string? contacto { get; set; }
     }
 }

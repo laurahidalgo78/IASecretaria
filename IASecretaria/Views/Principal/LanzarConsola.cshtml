@@ -109,6 +109,24 @@
                             }
                         });
                     }
+                    else if (unicornioRojo == "Enviar mensaje de texto") {
+                        $.ajax({
+                            type: 'POST',
+                            url: "@Url.Action("EnviarMensajeTexto", "Principal", new { Area = "" })/",
+                            data: { contacto: unicornio.contacto },
+                            success: function(result){
+                                var controlMensajeTexto = JSON.parse(result);
+                                if (controlMensajeTexto.controlMensajeTexto == true){
+                                    var videoHabla = document.querySelector("video#desaparece");
+                                    setTimeout(
+                                        function () {
+                                            videoHabla.src = "https://user-images.githubusercontent.com/69684654/210652135-abb7554d-c673-4552-b46b-dca4139ee7dc.mp4";
+                                        }, 3000);
+                                    videoHabla.setAttribute("src", "https://user-images.githubusercontent.com/69684654/212172659-c1eb66a4-773b-4ea8-8a7d-35aeea181546.mp4");
+                                }
+                            }
+                        });
+                    }
                     var contenedor = document.getElementById("contenedorImagen");
 
                     var imagen = document.createElement("video");               
@@ -280,6 +298,24 @@
                             }
                         });
                     }
+                        else if (unicornioRojo == "Enviar mensaje de texto") {
+                            $.ajax({
+                                type: 'POST',
+                                url: "@Url.Action("EnviarMensajeTexto", "Principal", new { Area = "" })/",
+                                data: { contacto: unicornio.contacto },
+                                success: function (result) {
+                                    var controlMensajeTexto = JSON.parse(result);
+                                    if (controlMensajeTexto.controlMensajeTexto == true) {
+                                        var videoHabla = document.querySelector("video#desaparece");
+                                        setTimeout(
+                                            function () {
+                                                videoHabla.src = "https://user-images.githubusercontent.com/69684654/210652135-abb7554d-c673-4552-b46b-dca4139ee7dc.mp4";
+                                            }, 3000);
+                                        videoHabla.setAttribute("src", "https://user-images.githubusercontent.com/69684654/212172659-c1eb66a4-773b-4ea8-8a7d-35aeea181546.mp4");
+                                    }
+                                }
+                            });
+                        }
                         var contenedor = document.getElementById("contenedorImagen");
                         
                         var imagen = document.createElement("video");

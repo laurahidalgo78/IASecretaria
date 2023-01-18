@@ -34,6 +34,7 @@ namespace IASecretaria.Controllers
             var respuestaPrediction = "";
             var respuestaVideo = "";
 
+            respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
             // Crea una nueva instancia de la clase QaAServices
             QaAServices qaAServices = new QaAServices();
             SecretariaHokmaContext secretariaHokmaContext = new SecretariaHokmaContext();
@@ -51,10 +52,8 @@ namespace IASecretaria.Controllers
             {
                 var respuestaNombre = qaAController.PeticionPredictionNombre(respuesta);
                 var contacto = qaAController.NombrePeticion(respuestaNombre);
-                EnviarMensajeTexto(contacto.Result);
+                reconocimiento.contacto = contacto.Result;
             }
-            
-            respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
             reconocimiento.respuesta = respuestaPrediction;
             reconocimiento.respuestaVideo = respuestaVideo;
 
@@ -141,9 +140,9 @@ namespace IASecretaria.Controllers
             // Recibe la respuesta del del metodo que transforma la voz a texto
             Thread.Sleep(3000);
             var mensaje = await qaAController.ReconocimientoVoz(speechConfig);
+            Thread.Sleep(1000);
             await qaAController.PeticionSMS(mensaje, contacto);
 
-            Thread.Sleep(2000);
             await qaAController.ReconocimientoTexto("Tu mensaje ha sido enviado con exito", speechConfig);
             respuestaReconocimietoVoz reconocimiento = new respuestaReconocimietoVoz();
             reconocimiento.controlMensajeTexto = true;
