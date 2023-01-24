@@ -90,7 +90,7 @@
                     var unicornio = JSON.parse(result);
                     var unicornioAzul = unicornio.respuestaVideo;
                     var unicornioRojo = unicornio.respuesta; 
-                    if (unicornioRojo == "Enviar Mensaje") {
+                    if (unicornioRojo == "Enviar mensaje") {
                         $.ajax({
                             type: 'POST',
                             url: "@Url.Action("ConfirmacionMensajeTeams", "Principal", new { Area = "" })/",
@@ -277,7 +277,7 @@
                         var unicornio = JSON.parse(result);
                         var unicornioAzul = unicornio.respuestaVideo;
                         var unicornioRojo = unicornio.respuesta;
-                        if (unicornioRojo == "Enviar Mensaje") {
+                        if (unicornioRojo == "Enviar mensaje") {
                         $.ajax({
                             type: 'POST',
                             url: "@Url.Action("ConfirmacionMensajeTeams", "Principal", new { Area = "" })/",
