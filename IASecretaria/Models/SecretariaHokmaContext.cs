@@ -25,13 +25,13 @@ public partial class SecretariaHokmaContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=HOKMA-010\\SQLEXPRESS;Database=SecretariaHokma;User ID=hokma;Password=dylanmajo78;TrustServerCertificate=true;Encrypt=True;Trusted_Connection=True");
+        => optionsBuilder.UseSqlServer("Server=HOKMA_009\\SQLEXPRESS01;Database=SecretariaHokma;User ID=HOKMA_009\\julian.gonzalez;TrustServerCertificate=true;Encrypt=True;Trusted_Connection=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Intencione>(entity =>
         {
-            entity.HasKey(e => e.IntencionesId).HasName("PK__intencio__345254424AB10CA4");
+            entity.HasKey(e => e.IntencionesId).HasName("PK__intencio__34525442D610AE02");
 
             entity.ToTable("intenciones");
 
@@ -46,26 +46,20 @@ public partial class SecretariaHokmaContext : DbContext
 
         modelBuilder.Entity<Persona>(entity =>
         {
-            entity.HasKey(e => e.Idpersona).HasName("PK__persona__5C5C1E28479AF010");
+            entity.HasKey(e => e.Idpersona).HasName("PK__persona__023DC68D62BEC6FC");
 
             entity.ToTable("persona");
 
-            entity.Property(e => e.Idpersona)
-                .ValueGeneratedNever()
-                .HasColumnName("idpersona");
+            entity.Property(e => e.Idpersona).ValueGeneratedNever();
             entity.Property(e => e.Apellido)
-                .HasMaxLength(250)
-                .IsUnicode(false)
-                .HasColumnName("apellido");
+                .HasMaxLength(70)
+                .IsUnicode(false);
             entity.Property(e => e.Contacto)
-                .HasMaxLength(250)
-                .IsUnicode(false)
-                .HasColumnName("contacto");
-            entity.Property(e => e.IdtipoContacto).HasColumnName("idtipo_contacto");
+                .HasMaxLength(100)
+                .IsUnicode(false);
             entity.Property(e => e.Nombre)
-                .HasMaxLength(250)
-                .IsUnicode(false)
-                .HasColumnName("nombre");
+                .HasMaxLength(50)
+                .IsUnicode(false);
 
             entity.HasOne(d => d.IdtipoContactoNavigation).WithMany(p => p.Personas)
                 .HasForeignKey(d => d.IdtipoContacto)
@@ -75,22 +69,19 @@ public partial class SecretariaHokmaContext : DbContext
 
         modelBuilder.Entity<TipoContacto>(entity =>
         {
-            entity.HasKey(e => e.IdtipoContacto).HasName("PK__tipo_con__CA2FCA8FBD465E5D");
+            entity.HasKey(e => e.IdtipoContacto).HasName("PK__tipo_con__60C1B01F16C8C731");
 
             entity.ToTable("tipo_contacto");
 
-            entity.Property(e => e.IdtipoContacto)
-                .ValueGeneratedNever()
-                .HasColumnName("idtipo_contacto");
+            entity.Property(e => e.IdtipoContacto).ValueGeneratedNever();
             entity.Property(e => e.Descripcion)
-                .HasMaxLength(250)
-                .IsUnicode(false)
-                .HasColumnName("descripcion");
+                .HasMaxLength(50)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Video>(entity =>
         {
-            entity.HasKey(e => e.VideoId).HasName("PK__videos__14B0F5B6367B58B8");
+            entity.HasKey(e => e.VideoId).HasName("PK__videos__14B0F5B6093C02F0");
 
             entity.ToTable("videos");
 

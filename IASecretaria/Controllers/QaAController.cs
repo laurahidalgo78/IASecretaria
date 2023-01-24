@@ -111,15 +111,15 @@ namespace IASecretaria.Controllers
                             id = "1",
                             text = respuestaPeticion,
                             modality = "text",
-                            language = "en",
+                            language = "es",
                             participantId = "1",
                         }
                     },
                     parameters = new Parameters()
                     {
-                        projectName = "Secretarie",
+                        projectName = "IntencionesAsistente",
                         verbose = true,
-                        deploymentName = "Secretarie-deploy",
+                        deploymentName = "DeployAsistenteVirtual",
                         stringIndexType = "TextElement_V8",
                     }
                 };
@@ -153,15 +153,15 @@ namespace IASecretaria.Controllers
                             id = "1",
                             text = respuestaPeticion,
                             modality = "text",
-                            language = "en",
+                            language = "es",
                             participantId = "1",
                         }
                     },
                     parameters = new Parameters()
                     {
-                        projectName = "Secretarie",
+                        projectName = "IntencionesAsistente",
                         verbose = true,
-                        deploymentName = "Secretarie-deploy",
+                        deploymentName = "DeployAsistenteVirtual",
                         stringIndexType = "TextElement_V8",
                     }
                 };
